@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:youalarm/model/alarms.dart';
+import 'package:youalarm/model/sounds_model.dart';
 import 'package:youalarm/view/screens/alarms.dart';
 import 'package:youalarm/view/screens/search.dart';
+import 'package:youalarm/view/screens/sounds_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "/home";
@@ -15,32 +18,35 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentTab = 0;
 
-  List<String> tabTitles = [
-    "Alarms",
-    "Search",
-  ];
-
-  List<List<Widget>?> actions = [
-    [],
-    [],
+  List<AppBar> appBars = [
+    AppBar(
+      title: const Text("Alarms"),
+    ),
+    AppBar(
+      title: const Text("Search"),
+    ),
+    AppBar(
+      title: const Text("Sounds"),
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(tabTitles[currentTab]),
-        actions: actions[currentTab],
-      ),
+      appBar: appBars[currentTab],
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: const Icon(Icons.alarm),
-            label: tabTitles[0],
+            icon: Icon(Icons.alarm),
+            label: "Alarms",
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.search),
-            label: tabTitles[1],
+            icon: Icon(Icons.search),
+            label: "Search",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.music_note),
+            label: "Sounds",
           ),
         ],
         onTap: (index) => setState(() => currentTab = index),
@@ -52,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: const [
             AlarmsScreen(),
             SearchScreen(),
+            SoundsScreen(),
           ],
         ),
       ),
@@ -61,9 +68,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       var alarmsModel = AlarmsModel.of(context, listen: false);
       alarmsModel.load();
+
+      var soundsModel = SoundsModel.of(context, listen: false);
+      soundsModel.load();
     });
   }
 }

@@ -14,19 +14,19 @@ class Alarm {
 
   factory Alarm.fromJson(Map<String, dynamic> json) {
     return Alarm(
-        date: json['date'],
-        soundId: parseInt(json['sound']),
-        id: parseInt(json['id']));
+        date: json[YADB.alarmDate],
+        soundId: parseInt(json[YADB.soundId]),
+        id: parseInt(json[YADB.alarmId]));
   }
 
   Json toJson({bool withId = true}) {
     var map = {
-      'date': date,
-      'sound': soundId,
+      YADB.alarmDate: date?.millisecondsSinceEpoch,
+      YADB.soundId: soundId,
     };
 
     if (withId) {
-      map['id'] = id;
+      map[YADB.alarmId] = id;
     }
 
     return map;

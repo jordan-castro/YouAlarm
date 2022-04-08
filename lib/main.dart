@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:youalarm/model/alarms.dart';
+import 'package:youalarm/model/sounds_model.dart';
 import 'package:youalarm/view/screens/home.dart';
+import 'package:youalarm/view/screens/sound_screen.dart';
 
 void main() {
   runApp(const YouAlarm());
@@ -17,11 +20,15 @@ class YouAlarm extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => AlarmsModel(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => SoundsModel(),
+        ),
       ],
       child: MaterialApp(
         title: "YouAlarm",
         routes: {
           HomeScreen.routeName: (_) => const HomeScreen(),
+          SoundScreen.routeName: (_) => const SoundScreen(),
         },
         home: const HomeScreen(),
       ),

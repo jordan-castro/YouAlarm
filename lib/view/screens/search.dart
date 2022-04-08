@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:youalarm/controller/load_sound.dart';
+import 'package:youalarm/model/sounds_model.dart';
 import 'package:youalarm/view/widgets/search_field.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class SearchScreen extends StatelessWidget {
     return Center(
       child: SearchField(
         onSubmit: (query) {
-          loadSoud(query);
+          SoundsModel.of(context, listen: false).downloadNewSound(query);
         },
       ),
     );

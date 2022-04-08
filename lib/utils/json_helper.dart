@@ -107,3 +107,16 @@ dynamic parseJson(Map json, keyFrom, keyTo) {
   // Return the new map
   return parsedJson;
 }
+
+Duration? parseDuration(someDuration) {
+  if (someDuration is Duration) {
+    return someDuration;
+  }
+
+  if (someDuration is int) {
+    // Convert
+    return Duration(milliseconds: someDuration);
+  }
+
+  return null;
+}

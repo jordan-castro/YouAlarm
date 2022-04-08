@@ -8,6 +8,9 @@ class Sound {
   /// The title of the sound.
   final String? title;
 
+  /// The author
+  final String? author;
+
   /// The youtube id
   final String? yId;
 
@@ -34,6 +37,7 @@ class Sound {
     this.thumbnail,
     this.id,
     this.streamInfo,
+    this.author,
   });
 
   factory Sound.fromJson(Map<String, dynamic> json) {
@@ -41,9 +45,10 @@ class Sound {
       title: parseString(json[YADB.soundTitle]),
       yId: parseString(json[YADB.soundYId]),
       location: parseString(json[YADB.soundLocation]),
-      duration: json[YADB.soundDuration],
+      duration: parseDuration(json[YADB.soundDuration]),
       thumbnail: parseString(json[YADB.soundThumbnail]),
       id: parseInt(json[YADB.soundId]),
+      author: parseString(json[YADB.soundAuthor]),
     );
   }
 
@@ -52,8 +57,9 @@ class Sound {
       YADB.soundTitle: title,
       YADB.soundYId: yId,
       YADB.soundLocation: location,
-      YADB.soundDuration: duration,
+      YADB.soundDuration: duration?.inMilliseconds,
       YADB.soundThumbnail: thumbnail,
+      YADB.soundAuthor: author,
     };
 
     if (withId) {
@@ -65,5 +71,18 @@ class Sound {
 
   static Sounds fromJsonList(SQLs json) {
     return json.map((e) => Sound.fromJson(e!)).toList();
+  }
+
+  static Sound editLocation(Sound current, String location) {
+    return Sound(
+      title: current.title,
+      duration: current.duration,
+      id: current.id,
+      location: location,
+      streamInfo: current.streamInfo,
+      thumbnail: current.thumbnail,
+      yId: current.yId,
+      author: current.author,
+    );
   }
 }

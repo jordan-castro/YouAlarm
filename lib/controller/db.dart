@@ -9,16 +9,16 @@ typedef SQLs = List<SQL>;
 
 class YADB {
   static const _databaseName = "YouAlarm.db";
-  static const _databaseVersion = 3;
+  static const _databaseVersion = 2;
 
   static const alarmsTable = "Alarm";
   static const alarmId = "alarmid";
   static const alarmDate = "alarmdate";
-  static const alarmSound = "soundid";
 
   static const soundsTable = "Sound";
   static const soundId = "soundid";
   static const soundTitle = "title";
+  static const soundAuthor = "author";
   static const soundYId = "youtubeid";
   static const soundLocation = "location";
   static const soundDuration = "duration";
@@ -56,7 +56,7 @@ class YADB {
       CREATE TABLE IF NOT EXISTS $alarmsTable (
         $alarmId INTEGER PRIMARY KEY,
         $alarmDate INTEGER NOT NULL,
-        $alarmSound INTEGER NOT NULL
+        $soundId INTEGER NOT NULL
       )
     """);
 
@@ -67,7 +67,8 @@ class YADB {
         $soundYId TEXT NOT NULL,
         $soundLocation TEXT NOT NULL,
         $soundDuration INTEGER NOT NULL,
-        $soundThumbnail TEXT NOT NULL
+        $soundThumbnail TEXT NOT NULL,
+        $soundAuthor TEXT NOT NULL
       )
     """);
   }
