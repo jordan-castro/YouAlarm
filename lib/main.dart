@@ -3,6 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:youalarm/model/alarms.dart';
 import 'package:youalarm/model/sounds_model.dart';
+import 'package:youalarm/model/theme_model.dart';
 import 'package:youalarm/view/screens/home.dart';
 import 'package:youalarm/view/screens/sound_screen.dart';
 
@@ -15,23 +16,30 @@ class YouAlarm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => AlarmsModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => SoundsModel(),
-        ),
-      ],
-      child: MaterialApp(
-        title: "YouAlarm",
-        routes: {
-          HomeScreen.routeName: (_) => const HomeScreen(),
-          SoundScreen.routeName: (_) => const SoundScreen(),
-        },
-        home: const HomeScreen(),
-      ),
+    return Builder(
+      builder: (context) {
+        return ChangeNotifierProvider(
+          create:  (context) => ThemeModel(),
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (_) => AlarmsModel(),
+              ),
+              ChangeNotifierProvider(
+                create: (_) => SoundsModel(),
+              ),
+            ],
+            child: MaterialApp(
+              title: "YouAlarm",
+              routes: {
+                HomeScreen.routeName: (_) => const HomeScreen(),
+                SoundScreen.routeName: (_) => const SoundScreen(),
+              },
+              home: const HomeScreen(),
+            ),
+          ),
+        );
+      }
     );
   }
 }

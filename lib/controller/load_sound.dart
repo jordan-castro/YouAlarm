@@ -1,7 +1,8 @@
-import 'package:youalarm/controller/sound.dart';
-import 'package:youalarm/utils/files.dart';
-import 'package:youalarm/utils/random_name.dart';
-import 'package:youalarm/utils/youtube_extensions.dart';
+import 'sound.dart';
+import '/utils/files.dart';
+import '/utils/globals.dart';
+import '/utils/random_name.dart';
+import '/utils/youtube_extensions.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 /// Load the videos MP3 stream
@@ -41,7 +42,7 @@ Future<String> saveStream(AudioOnlyStreamInfo streamInfo) async {
   // Get the actual stream
   var stream = yt.videos.streamsClient.get(streamInfo);
 
-  var file = await createNewFile(randomName(5));
+  var file = await createNewFile(randomName(5), SOUNDS_STORAGE_PATH);
   var fileStream = file.openWrite();
 
   // Load the bytes

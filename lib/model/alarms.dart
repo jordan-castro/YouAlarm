@@ -24,6 +24,13 @@ class AlarmsModel with ChangeNotifier {
     slowLoad();
   }
 
+  void editAlarm(Alarm alarm) {
+    yadb.updateAlarm(
+      alarm.toJson(withId: true),
+    );
+    slowLoad();
+  }
+
   void removeAlarm(Alarm alarm) {
     yadb.deleteAlarm(alarm.id!);
     slowLoad();
@@ -33,7 +40,7 @@ class AlarmsModel with ChangeNotifier {
     if (!loading) {
       loading = true;
       notifyListeners();
-  }
+    }
     await Future.delayed(const Duration(milliseconds: 500));
     load();
   }

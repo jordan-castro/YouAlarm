@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:youalarm/model/alarms.dart';
 import 'package:youalarm/model/sounds_model.dart';
 import 'package:youalarm/view/screens/alarms.dart';
 import 'package:youalarm/view/screens/search.dart';
 import 'package:youalarm/view/screens/sounds_screen.dart';
+import 'package:youalarm/view/widgets/add_alarm.dart';
+
+import '../../utils/files.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "/home";
@@ -21,6 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   List<AppBar> appBars = [
     AppBar(
       title: const Text("Alarms"),
+      actions: const [
+        AddAlarmButton(),
+      ],
     ),
     AppBar(
       title: const Text("Search"),
@@ -74,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       var soundsModel = SoundsModel.of(context, listen: false);
       soundsModel.load();
+      await createAppDirectory();
     });
   }
 }

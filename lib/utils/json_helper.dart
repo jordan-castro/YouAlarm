@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 typedef Json = Map<String, dynamic>;
 
 /// Hace el parse a qualckier mierda que pasamos.
@@ -77,11 +79,18 @@ dynamic convertDateTime(String? someDateString) {
 
 /// This returns a bool from a [String] or [int]
 bool parseBool(someBoolean) {
-  var value = null;
+  var value;
+  
+  if (someBoolean is int) {
+    value = someBoolean;
+  }
+
   // Checking if string to convert
   if (someBoolean is String) {
     value = int.tryParse(someBoolean);
-  } else if (someBoolean == null) {
+  } 
+  
+  if (someBoolean == null) {
     return false;
   }
 
@@ -108,14 +117,41 @@ dynamic parseJson(Map json, keyFrom, keyTo) {
   return parsedJson;
 }
 
+/// This parses a [String] or [int] to a [Duration]
 Duration? parseDuration(someDuration) {
   if (someDuration is Duration) {
     return someDuration;
   }
 
+  if (someDuration is String) {
+    // Try and become int to parse below
+    someDuration = int.tryParse(someDuration);
+  }
+
   if (someDuration is int) {
     // Convert
     return Duration(milliseconds: someDuration);
+  }
+
+  return null;
+}
+
+/// Parse a [String] to a [TimeOfDay]
+TimeOfDay? parseTimeOfDay(someTimeOfDay) {
+  if (someTimeOfDay is TimeOfDay) {
+    return someTimeOfDay;
+  }
+
+  if (someTimeOfDay is String) {
+    // Check validity
+    if (someTimeOfDay.contains(":")) {
+      // Get hour and minute
+      var source = someTimeOfDay.split(":");
+      return TimeOfDay(
+        hour: int.parse(source[0]),
+        minute: int.parse(source[1]),
+      );
+    }
   }
 
   return null;

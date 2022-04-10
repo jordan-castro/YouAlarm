@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -9,11 +8,13 @@ typedef SQLs = List<SQL>;
 
 class YADB {
   static const _databaseName = "YouAlarm.db";
-  static const _databaseVersion = 2;
+  static const _databaseVersion = 4;
 
   static const alarmsTable = "Alarm";
   static const alarmId = "alarmid";
-  static const alarmDate = "alarmdate";
+  static const alarmDate = "date";
+  static const alarmDays = "days";
+  static const alarmEnabled = "enabled";
 
   static const soundsTable = "Sound";
   static const soundId = "soundid";
@@ -55,8 +56,10 @@ class YADB {
     await db.execute("""
       CREATE TABLE IF NOT EXISTS $alarmsTable (
         $alarmId INTEGER PRIMARY KEY,
-        $alarmDate INTEGER NOT NULL,
-        $soundId INTEGER NOT NULL
+        $alarmDate STRING NOT NULL,
+        $soundId INTEGER NOT NULL,
+        $alarmDays STRING NOT NULL,
+        $alarmEnabled INTEGER NOT NULL
       )
     """);
 

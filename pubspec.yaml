@@ -34,17 +34,27 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  # For UI
   provider: ^6.0.2
-  # flutter_inappwebview: ^5.3.2
+  # Playing MP3s
   audioplayers: ^0.20.1
+  # For the Youtube API
   youtube_explode_dart: ^1.10.10+2
+  # Pretty self explanatory
   shared_preferences: ^2.0.13
+  # Handles alarms
   android_alarm_manager_plus: ^2.0.5
+  # Database
   sqflite: ^2.0.2
+  # For the database and saving the MP3s
   path_provider: ^2.0.2
   path: ^1.8.0
+  # TODO: Document
   http: ^0.13.4
+  # Save network images easily
   cached_network_image: ^3.2.0
+  # For writing to the device
+  permission_handler: ^9.2.0
 
 
 dev_dependencies:
