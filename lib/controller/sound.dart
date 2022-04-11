@@ -69,20 +69,22 @@ class Sound {
     return map;
   }
 
-  static Sounds fromJsonList(SQLs json) {
-    return json.map((e) => Sound.fromJson(e!)).toList();
+  Sound copyWith({
+    String? title,
+    String? author,
+    String? yId,
+    String? location,
+    Duration? duration,
+    String? thumbnail,
+    int? id,
+  }) {
+    return Sound(
+      title: title ?? this.title,
+      author: author
+    );
   }
 
-  static Sound editLocation(Sound current, String location) {
-    return Sound(
-      title: current.title,
-      duration: current.duration,
-      id: current.id,
-      location: location,
-      streamInfo: current.streamInfo,
-      thumbnail: current.thumbnail,
-      yId: current.yId,
-      author: current.author,
-    );
+  static Sounds fromJsonList(SQLs json) {
+    return json.map((e) => Sound.fromJson(e!)).toList();
   }
 }

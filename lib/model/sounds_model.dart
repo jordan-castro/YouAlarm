@@ -51,7 +51,7 @@ class SoundsModel with ChangeNotifier {
     if (sound.streamInfo != null) {
       var location = await saveStream(sound.streamInfo!);
       // Create new Sound object with data!
-      var newSound = Sound.editLocation(sound, location);
+      var newSound = sound.copyWith(location: location);
 
       addSound(newSound);
     }
