@@ -88,7 +88,7 @@ class Sound {
   }
 
   /// Fetch a sound from it's id.
-  static Future<Sound?> fetchFromId(int id) async {
+  static Future<Sound?> soundFromId(int id) async {
     var sound = await yadb.getSound(id);
     if (sound != null) {
       return Sound.fromJson(sound);
