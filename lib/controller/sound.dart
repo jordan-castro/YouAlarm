@@ -2,6 +2,8 @@ import 'package:youalarm/controller/db.dart';
 import 'package:youalarm/utils/json_helper.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
+import '../utils/globals.dart';
+
 typedef Sounds = List<Sound>;
 
 class Sound {
@@ -78,13 +80,19 @@ class Sound {
     String? thumbnail,
     int? id,
   }) {
-    return Sound(
-      title: title ?? this.title,
-      author: author
-    );
+    return Sound(title: title ?? this.title, author: author);
   }
 
   static Sounds fromJsonList(SQLs json) {
-    return json.map((e) => Sound.fromJson(e!)).toList();
+    return json.map((e) => Sound.fromJson(e)).toList();
+  }
+
+  /// Fetch a sound from it's id.
+  static Future<Sound?> fetchFromId(int id) async {
+    var sound = await yadb.getSound(id);
+    if (sound != null) {
+      return Sound.fromJson(sound);
+    }
+    return null;
   }
 }

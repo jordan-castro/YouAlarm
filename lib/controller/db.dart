@@ -3,7 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
 
-typedef SQL = Map<String, dynamic>?;
+typedef SQL = Map<String, dynamic>;
 typedef SQLs = List<SQL>;
 
 class YADB {
@@ -97,7 +97,7 @@ class YADB {
     }
   }
 
-  Future<SQL> query(String table, String column, int id) async {
+  Future<SQL?> query(String table, String column, int id) async {
     final Database db = await database;
     var res = await db.query(
       table,
@@ -130,7 +130,7 @@ class YADB {
     final Database db = await database;
     await db.insert(
       table,
-      data!,
+      data,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -139,7 +139,7 @@ class YADB {
     final Database db = await database;
     await db.update(
       table,
-      data!,
+      data,
       where: "$alarmId = ?",
       whereArgs: [data[alarmId]],
     );
@@ -154,11 +154,11 @@ class YADB {
     );
   }
 
-  Future<SQL> getAlarm(int id) async {
+  Future<SQL?> getAlarm(int id) async {
     return await query(alarmsTable, alarmId, id);
   }
 
-  Future<SQL> getSound(int id) async {
+  Future<SQL?> getSound(int id) async {
     return await query(soundsTable, soundId, id);
   }
 

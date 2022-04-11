@@ -99,6 +99,16 @@ class Alarm {
   }
 
   static Alarms fromJsonList(SQLs json) {
-    return json.map((e) => Alarm.fromJson(e!)).toList();
+    return json.map((e) => Alarm.fromJson(e)).toList();
+  }
+
+  /// Get an Alarm from the databse based on it's id.
+  static Future<Alarm?> alarmFromId(int id) async {
+    var alarm = await yadb.getAlarm(id);
+    if (alarm != null) {
+      return Alarm.fromJson(alarm);
+    }
+
+    return null;
   }
 }
