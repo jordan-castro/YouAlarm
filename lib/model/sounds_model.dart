@@ -21,7 +21,7 @@ class SoundsModel with ChangeNotifier {
 
   /// Slow load is useful when adding to the database and wanting to show
   /// the new data.
-  void slowLoad({Duration? duration}) async {
+  Future<void> slowLoad({Duration? duration}) async {
     // Show loading if loading already finished before.
     if (loading = false) {
       loading = true;
@@ -37,10 +37,10 @@ class SoundsModel with ChangeNotifier {
     slowLoad();
   }
 
-  void removeSound(Sound sound) {
+  Future<void> removeSound(Sound sound) async {
     yadb.deleteSound(sound.id!);
     sound.delete();
-    slowLoad();
+    await slowLoad();
   }
 
   /// Download a Sound from YouTube and add it to the database.
@@ -49,6 +49,7 @@ class SoundsModel with ChangeNotifier {
     notifyListeners();
 
     var sound = await loadSound(url);
+    print(sound.toJson(withId: true));
     if (sound.streamInfo != null) {
       var location = await saveStream(sound.streamInfo!);
       // Create new Sound object with data!

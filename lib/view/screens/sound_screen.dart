@@ -46,7 +46,8 @@ class SoundScreen extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 30.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
               child: Center(
                 child: Text(
                   sound.title!,
@@ -59,9 +60,10 @@ class SoundScreen extends StatelessWidget {
             ),
             Mp3Player(
               mp3: MP3(
-                  path: sound.location!,
-                  title: sound.title!,
-                  image: sound.thumbnail),
+                path: sound.location!,
+                title: sound.title!,
+                image: sound.thumbnail,
+              ),
             ),
           ],
         ),

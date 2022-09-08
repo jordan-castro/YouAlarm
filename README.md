@@ -17,7 +17,12 @@ Download the app.apk file and install it on your Android device.
 ### iOS
 Download using Flutter
 
-# TODO:
+## Test with
+https://www.youtube.com/watch?v=JZjAg6fK-BQ&list=RDJZjAg6fK-BQ&start_radio=1
+
+## TODO:
 - Fix iOS path (currently only using hard coded android path).
 - Actually set alarms.
 - Edit search youtube ui.
+- Save days on alarm widget and DB.
+- Add adaptive widgets depending on platform. (Android: Material, iOS: Cupertino)

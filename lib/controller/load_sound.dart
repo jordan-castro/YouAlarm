@@ -42,7 +42,7 @@ Future<String> saveStream(AudioOnlyStreamInfo streamInfo) async {
   // Get the actual stream
   var stream = yt.videos.streamsClient.get(streamInfo);
 
-  var file = await createNewFile(randomName(5), SOUNDS_STORAGE_PATH);
+  var file = await createNewFile("${randomName(6)}.mp3", SOUNDS_STORAGE_PATH);
   var fileStream = file.openWrite();
 
   // Load the bytes

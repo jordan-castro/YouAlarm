@@ -178,6 +178,8 @@ class _Mp3PlayerState extends State<Mp3Player> {
         });
       });
     }
+
+    print("Is playing: $playing");
   }
 
   void pause() async {

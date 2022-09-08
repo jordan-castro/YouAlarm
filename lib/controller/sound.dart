@@ -82,7 +82,15 @@ class Sound {
     String? thumbnail,
     int? id,
   }) {
-    return Sound(title: title ?? this.title, author: author);
+    return Sound(
+      title: title ?? this.title,
+      author: author ?? this.author,
+      yId: yId ?? this.author,
+      location: location ?? this.location,
+      duration: duration ?? this.duration,
+      thumbnail: thumbnail ?? this.thumbnail,
+      id: id ?? this.id,
+    );
   }
 
   static Sounds fromJsonList(SQLs json) {
@@ -98,7 +106,7 @@ class Sound {
     return null;
   }
 
-  /// Delete the sound from the machine. 
+  /// Delete the sound from the machine.
   /// !Important does not delete from local DB.
   void delete() async {
     // Always try
@@ -107,6 +115,6 @@ class Sound {
       await file.delete();
     } catch (exception) {
       print("Not able to delete $title at $location because of: $exception");
-    } 
+    }
   }
 }

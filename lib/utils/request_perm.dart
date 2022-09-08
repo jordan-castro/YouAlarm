@@ -6,7 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 ///
 /// **Returns** `Future<bool>`
 Future<bool> requestDownloadPermission() async {
-  if (!Platform.isAndroid || !Platform.isIOS) {
+  if (!Platform.isAndroid && !Platform.isIOS) {
     return false;
   }
   if (!(await _requestPermission(Permission.storage))) {
@@ -35,7 +35,7 @@ Future<bool> _requestPermission(Permission permission) async {
 
   if (status.isDenied) {
     status = await permission.request();
-
+    
     if (status.isDenied) {
       return false;
     }

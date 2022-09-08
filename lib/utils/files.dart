@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'globals.dart';
 import 'request_perm.dart';
@@ -66,6 +67,7 @@ Future<File?> getFileAsync(String filePath) async {
 /// This handles creating directories.
 Future<void> _createDir(Directory dir, bool recurse) async {
   var storage = await requestDownloadPermission();
+  print("Storage permissions for ${dir.path}: $storage");
   if (storage) {
     if (!(await dir.exists())) {
       dir.create(recursive: recurse);
@@ -80,7 +82,7 @@ Future<void> createSubDirectory(directory, {bool recurse = false}) async {
     await createAppDirectory();
   }
 
-  Directory dir = Directory("${APP_STORAGE_PATH['Android']}/$directory");
+  Directory dir = Directory("${appStoragePath()}/$directory");
   await _createDir(dir, recurse);
 }
 
@@ -88,8 +90,9 @@ Future<void> createSubDirectory(directory, {bool recurse = false}) async {
 /// If the directory already exists, it will not be created again.
 Future<void> createAppDirectory() async {
   // Create a directory
-  Directory dir = Directory(APP_STORAGE_PATH['Android']);
+  Directory dir = Directory(await appStoragePath());
   await _createDir(dir, true);
+  await _createDir(Directory("${dir.path}/$SOUNDS_STORAGE_PATH"), false);
 }
 
 /// Move a File from one path to another.
@@ -129,9 +132,16 @@ Future<String> unique(String path) async {
 
 /// Quickly get a File with the app directory's path and parent.
 Future<File> createNewFile(String name, String parent) async {
-  var appDir = Directory(APP_STORAGE_PATH['Android']);
+  var appDir = Directory(await appStoragePath());
 
   var fileName = join(appDir.path, parent, name);
 
   return File(fileName);
+}
+
+/// Return the APP_STORAGE_PATH based on system
+Future<String> appStoragePath() async {
+  return Platform.isAndroid
+      ? "/storage/emulated/0/YouAlarm"
+      : (Platform.isIOS ? "${(await getApplicationDocumentsDirectory()).path}/YouAlarm" : "");
 }
