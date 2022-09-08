@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:youalarm/controller/db.dart';
 import 'package:youalarm/utils/json_helper.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
@@ -94,5 +96,17 @@ class Sound {
       return Sound.fromJson(sound);
     }
     return null;
+  }
+
+  /// Delete the sound from the machine. 
+  /// !Important does not delete from local DB.
+  void delete() async {
+    // Always try
+    try {
+      File file = File(location!);
+      await file.delete();
+    } catch (exception) {
+      print("Not able to delete $title at $location because of: $exception");
+    } 
   }
 }
