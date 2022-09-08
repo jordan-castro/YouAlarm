@@ -42,8 +42,6 @@ dependencies:
   youtube_explode_dart: ^1.10.10+2
   # Pretty self explanatory
   shared_preferences: ^2.0.13
-  # Handles alarms
-  android_alarm_manager_plus: ^2.0.5
   # Database
   sqflite: ^2.0.2
   # For the database and saving the MP3s
@@ -55,6 +53,8 @@ dependencies:
   cached_network_image: ^3.2.0
   # For writing to the device
   permission_handler: ^9.2.0
+  # Handles alarms
+  flutter_local_notifications: ^9.9.1
 
 
 dev_dependencies:
