@@ -6,27 +6,25 @@ import 'package:permission_handler/permission_handler.dart';
 ///
 /// **Returns** `Future<bool>`
 Future<bool> requestDownloadPermission() async {
-  if (Platform.isAndroid) {
-    if (await _requestPermission(Permission.storage) &&
-        // access media location needed for android 10/Q
-        await _requestPermission(Permission.accessMediaLocation) &&
-        // manage external storage needed for android 11/R
-        await _requestPermission(Permission.manageExternalStorage)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  if (Platform.isIOS) {
-    if (await _requestPermission(Permission.photos)) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    // not android or ios
+  if (!Platform.isAndroid || !Platform.isIOS) {
     return false;
   }
+  if (!(await _requestPermission(Permission.storage))) {
+    return false;
+  }
+  // Just Android
+  if (Platform.isAndroid) {
+    // Needed in Android 10/Q
+    if (!(await _requestPermission(Permission.accessMediaLocation))) {
+      return false;
+    }
+    // Needed in Android 11/R
+    if (!(await _requestPermission(Permission.manageExternalStorage))) {
+      return false;
+    }
+  }
+  // We good!
+  return true;
 }
 
 /// Request permissions
