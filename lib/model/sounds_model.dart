@@ -39,6 +39,7 @@ class SoundsModel with ChangeNotifier {
 
   void removeSound(Sound sound) {
     yadb.deleteSound(sound.id!);
+    sound.delete();
     slowLoad();
   }
 
