@@ -13,7 +13,7 @@ Future<Sound> loadSound(String url) async {
   var video = await yt.videos.get(url);
 
   var streamInfo = await getStream(yt, url.videoIdFromUrl());
-
+  print(streamInfo.url);
   yt.close();
 
   return Sound(

@@ -39,7 +39,7 @@ dependencies:
   # Playing MP3s
   audioplayers: ^0.20.1
   # For the Youtube API
-  youtube_explode_dart: ^1.10.10+2
+  youtube_explode_dart: ^1.12.0
   # Pretty self explanatory
   shared_preferences: ^2.0.13
   # Database

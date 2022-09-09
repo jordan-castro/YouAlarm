@@ -49,7 +49,6 @@ class SoundsModel with ChangeNotifier {
     notifyListeners();
 
     var sound = await loadSound(url);
-    print(sound.toJson(withId: true));
     if (sound.streamInfo != null) {
       var location = await saveStream(sound.streamInfo!);
       // Create new Sound object with data!
