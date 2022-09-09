@@ -6,6 +6,8 @@ With that subscription in my hands I could wake up to whatever song I wanted to 
 ## Important
 ~~ This app currently only works for Android devices.~~
 We are currently working on including a **iOS** version!!!!
+## Anouncement
+YouAlarm is discontinued until YT explode fixes it's package.
 
 ## Getting Started
 If you know how to use Flutter then you can build this app as you like. Otherwise, you can follow the instructions below.
